@@ -6,11 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    <h1>Teste</h1>
+    <h1> Teste de Eventos com socket.io </h1>
+    <br>
+    <input type="text" name="" id="palavra">
+    <button onclick="enviar()">Enviar</button>
+    <hr>
+    <p id="resultado"></p>
+
 </body>
-<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>"></script>
+
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" 
+    integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" 
+    crossorigin="anonymous">
+</script>
+
 <script>
     var clienteFrontEnd = io("http://localhost:3000");
+
+    clienteFrontEnd.emit("mensagem",{nome: 'Claudisnei Bello Alves'});
+
+    clienteFrontEnd.on('resultado', (data) => {
+        console.log(data);
+        var p = document.getElementById('resultado');
+        p.innerHTML = data;
+    })
+
+    function enviar(){
+
+        var input = document.getElementById('palavra');
+        console.log(input.value);
+        clienteFrontEnd.emit("palavra", input.value)
+
+    }
 </script>
 </html>

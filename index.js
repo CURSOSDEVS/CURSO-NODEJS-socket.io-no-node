@@ -8,8 +8,16 @@ var io = require("socket.io")(http);
 
 //evento de conexão do socket.io
 io.on("connection",(clienteBackEnd) => {
-    console.log(clienteBackEnd);
-    console.log(clienteBackEnd.id)
+    
+    clienteBackEnd.on("mensagem", (data) => {
+        console.log(data);
+    })
+
+    clienteBackEnd.on('palavra',(data) => {
+        console.log(data);
+        clienteBackEnd.emit("resultado", data + " Guia do programador" );
+    })
+    
 })
 
 //configuando a view do projeto para utilizar o ejs
