@@ -25,6 +25,10 @@
 <script>
     var clienteFrontEnd = io("http://localhost:3000");
 
+    clienteFrontEnd.on("disconnect", ()=>{
+        console.log("Desconectado")
+    })
+
     clienteFrontEnd.emit("mensagem",{nome: 'Claudisnei Bello Alves'});
 
     clienteFrontEnd.on('resultado', (data) => {
